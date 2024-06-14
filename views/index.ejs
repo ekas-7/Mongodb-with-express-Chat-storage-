@@ -8,14 +8,24 @@
 </head>
 <body>
     <h3>All Chats!</h3>
+    <form action="/chats/new" method="get">
+        <button>New Chat</button>
+    </form>
     <% for(let chat of chats) { %>
     <div class="chat">
         <p>From: <%= chat.from %> </p>
         <div class="msg">
             <p><%= chat.msg %> </p>
+            <form action="/chats/<%= chat._id %>/edit" method="get">
+                <button type="submit">Edit</button>
+            </form>
+            <form action="/chats/<%= chat._id %>?_method=DELETE" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
         </div>
-        <p>Received by <%= chat.to %> </p>
+        <p>Received by: <%= chat.to %> </p>
+        <p>Time: <%= chat.created_at.toString().split(" ").slice(0, 4).join(" ") %> at <%= chat.created_at.toString().split(" ")[4] %></p>
     </div>
-        <% } %>
+    <% } %>
 </body>
 </html>
